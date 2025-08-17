@@ -35,6 +35,7 @@ void AlarmHandling() {
 }
 
 void FireSmokeDetection() {
+    cout<< "\n Fire/Smoke Detection \n";
     if (yesNo("Do YOU see fire/smoke?")) {
         AlarmHandling();
         return;
@@ -56,6 +57,14 @@ void PrepareToExit() {
     cout << "- Keys\n- Wallet/ID\n- Phone\n- Wet towels/cloths\n";
 }
 
+bool SafeRoomProcedure() {
+    cout << "\n Safe Room Procedure \n";
+    cout << "-> Enter a safe room with window if possible.\n";
+    cout << "-> Seal cracks with wet towels.\n";
+    cout << "-> Call emergency services and signal from window.\n";
+    cout << "-> Wait for rescue.\n";
+    return false; // could not escape
+}
 
 // main function
 int main() {

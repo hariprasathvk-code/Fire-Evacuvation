@@ -35,7 +35,6 @@ void AlarmHandling() {
 }
 
 void FireSmokeDetection() {
-    cout << "\n=== Fire/Smoke Detection (FSD) ===\n";
     if (yesNo("Do YOU see fire/smoke?")) {
         AlarmHandling();
         return;
@@ -51,6 +50,11 @@ void FireSmokeDetection() {
     cout << "-> No detection at this stage.\n";
 }
 
+void PrepareToExit() {
+    cout << "\nPrepare to Exit \n";
+    cout << "Collect items if reachable:\n";
+    cout << "- Keys\n- Wallet/ID\n- Phone\n- Wet towels/cloths\n";
+}
 
 
 // main function

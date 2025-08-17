@@ -66,10 +66,15 @@ bool SafeRoomProcedure() {
     return false; // could not escape
 }
 
-if (!yesNo("Do you see strong fire/smoke blocking the downstairs path?")) {
+bool EvacuationPath() {
+ cout << "\nEvacuation Path \n";
+ cout << "Use stairs only (never elevators).\n";
+
+ // Check downstairs path
+ if (!yesNo("Do you see strong fire/smoke blocking the downstairs path?")) {
      cout << "-> Go DOWNSTAIRS and exit the building.\n";
      if (yesNo("Have you completely exited the building?")) {
-         cout << "You are SAFE outside. \n";
+         cout << "You are SAFE outside. ✅\n";
          return true; // escaped successfully
      } else {
          cout << "-> Could not exit, fallback to Safe Room Procedure.\n";
@@ -87,6 +92,20 @@ if (!yesNo("Do you see strong fire/smoke blocking the downstairs path?")) {
          return SafeRoomProcedure();
      }
  }
+}
+
+bool DoorSafetyCheck() {
+    cout << "\n=== Door Safety Check (DSC) ===\n";
+    if (yesNo("Is the door HOT or is smoke seeping in?")) {
+        cout << "-> Do NOT open the door.\n";
+        cout << "-> Seal all cracks with wet towels.\n";
+        cout << "-> Call fire department, wave from window.\n";
+        cout << "-> Wait for rescue.\n";
+        return false; // blocked, cannot proceed to EP
+    } else {
+        cout << "-> Door is safe. Proceed to Evacuation Path (EP).\n";
+        return true;
+    }
 }
 
 // main function

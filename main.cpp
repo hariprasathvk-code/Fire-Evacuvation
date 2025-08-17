@@ -66,6 +66,29 @@ bool SafeRoomProcedure() {
     return false; // could not escape
 }
 
+if (!yesNo("Do you see strong fire/smoke blocking the downstairs path?")) {
+     cout << "-> Go DOWNSTAIRS and exit the building.\n";
+     if (yesNo("Have you completely exited the building?")) {
+         cout << "You are SAFE outside. \n";
+         return true; // escaped successfully
+     } else {
+         cout << "-> Could not exit, fallback to Safe Room Procedure.\n";
+         return SafeRoomProcedure();
+     }
+ } 
+ else {
+     // Path blocked, go upstairs
+     cout << "-> Path is blocked. Go UPSTAIRS and head to a BALCONY.\n";
+     if (yesNo("Did you reach a balcony?")) {
+         cout << "-> Balcony reached. WAIT for rescue there. \n";
+         return false; // waiting
+     } else {
+         cout << "-> Balcony not accessible. Switch to Safe Room Procedure.\n";
+         return SafeRoomProcedure();
+     }
+ }
+}
+
 // main function
 int main() {
     cout << "      FIRE EVACUATION ASSISTANT      \n";

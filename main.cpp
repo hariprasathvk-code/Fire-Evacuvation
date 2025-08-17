@@ -16,7 +16,23 @@ bool yesNo(const string& q) {
     }
 }
 
-
+void AlarmHandling() {
+    bool inside = yesNo("Are you inside the building?");
+    if (inside) {
+        cout << "-> Push the nearest manual fire alarm trigger.\n";
+        return;
+    }
+    bool outside = yesNo("Are you outside the building?");
+    if (outside) {
+        cout << "-> Contact the fire department immediately.\n";
+        return;
+    }
+    bool autoTrig = yesNo("Has the automatic smoke/fire alarm triggered?");
+    if (autoTrig) {
+        cout << "-> Alarm auto triggered, follow evacuation instructions.\n";
+        return;
+    }
+}
 
 
 // main function
@@ -44,6 +60,5 @@ int main() {
     } else {
         cout << "-> Stay in safe room / balcony and WAIT for rescue.\n";
     }
-";
     return 0;
 }

@@ -34,6 +34,24 @@ void AlarmHandling() {
     }
 }
 
+void FireSmokeDetection() {
+    cout << "\n=== Fire/Smoke Detection (FSD) ===\n";
+    if (yesNo("Do YOU see fire/smoke?")) {
+        AlarmHandling();
+        return;
+    }
+    if (yesNo("Did someone else see fire/smoke?")) {
+        AlarmHandling();
+        return;
+    }
+    if (yesNo("Did smoke detector trigger?")) {
+        AlarmHandling();
+        return;
+    }
+    cout << "-> No detection at this stage.\n";
+}
+
+
 
 // main function
 int main() {

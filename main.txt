@@ -1,0 +1,142 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+// ---------- Helper function ----------
+bool yesNo(const string& q) {
+    while (true) {
+        cout << q << " (y/n): ";
+        string s;
+        if (!(cin >> s)) exit(0);
+        transform(s.begin(), s.end(), s.begin(), ::tolower);
+        if (s == "y" || s == "yes") return true;
+        if (s == "n" || s == "no")  return false;
+        cout << "Please answer y or n.\n";
+    }
+}
+
+// ---------- Modules from the Flowchart ----------
+
+void AlarmHandling() {
+    cout << "\n=== Alarm Handling (AH) ===\n";
+    bool inside = yesNo("Are you inside the building?");
+    if (inside) {
+        cout << "-> Push the nearest manual fire alarm trigger.\n";
+        return;
+    }
+    bool outside = yesNo("Are you outside the building?");
+    if (outside) {
+        cout << "-> Contact the fire department immediately.\n";
+        return;
+    }
+    bool autoTrig = yesNo("Has the automatic smoke/fire alarm triggered?");
+    if (autoTrig) {
+        cout << "-> Alarm auto triggered, follow evacuation instructions.\n";
+        return;
+    }
+}
+
+void FireSmokeDetection() {
+    cout << "\n=== Fire/Smoke Detection (FSD) ===\n";
+    if (yesNo("Do YOU see fire/smoke?")) {
+        AlarmHandling();
+        return;
+    }
+    if (yesNo("Did someone else see fire/smoke?")) {
+        AlarmHandling();
+        return;
+    }
+    if (yesNo("Did smoke detector trigger?")) {
+        AlarmHandling();
+        return;
+    }
+    cout << "-> No detection at this stage.\n";
+}
+
+void PrepareToExit() {
+    cout << "\n=== Prepare to Exit (PE) ===\n";
+    cout << "Collect items if reachable:\n";
+    cout << "- Keys\n- Wallet/ID\n- Phone\n- Wet towels/cloths\n";
+}
+
+bool SafeRoomProcedure() {
+    cout << "\n=== Safe Room Procedure (SRP) ===\n";
+    cout << "-> Enter a safe room with window if possible.\n";
+    cout << "-> Seal cracks with wet towels.\n";
+    cout << "-> Call emergency services and signal from window.\n";
+    cout << "-> Wait for rescue.\n";
+    return false; // could not escape
+}
+
+bool EvacuationPath() {
+    cout << "\n=== Evacuation Path (EP) ===\n";
+    cout << "Use stairs only (never elevators).\n";
+    if (!yesNo("Do you see strong fire/smoke blocking the path?")) {
+        cout << "-> Go DOWNSTAIRS and exit the building.\n";
+        if (yesNo("Have you completely exited the building?")) {
+            cout << "You are SAFE outside. ✅\n";
+            return true; // success
+        } else {
+            return SafeRoomProcedure();
+        }
+    } else {
+        cout << "-> Path blocked. Try to reach an upstairs BALCONY.\n";
+        if (yesNo("Did you reach a balcony?")) {
+            cout << "-> Stay at the balcony and wait for rescue.\n";
+            return false;
+        } else {
+            return SafeRoomProcedure();
+        }
+    }
+}
+
+bool DoorSafetyCheck() {
+    cout << "\n=== Door Safety Check (DSC) ===\n";
+    if (yesNo("Is the door HOT or is smoke seeping in?")) {
+        cout << "-> Do NOT open the door.\n";
+        cout << "-> Seal all cracks with wet towels.\n";
+        cout << "-> Call fire department, wave from window.\n";
+        cout << "-> Wait for rescue.\n";
+        return false; // blocked, cannot proceed to EP
+    } else {
+        cout << "-> Door is safe. Proceed to Evacuation Path (EP).\n";
+        return true;
+    }
+}
+
+// ---------- Main Controller ----------
+int main() {
+    cout << "=====================================\n";
+    cout << "      FIRE EVACUATION ASSISTANT      \n";
+    cout << "  (Based on Emergency Flowchart)     \n";
+    cout << "=====================================\n\n";
+
+    // Initialization
+    cout << "=== Initialization (I) ===\n";
+    cout << "Stay calm. Direct fire/smoke and prepare to act.\n";
+
+    // Process (FSD -> AH -> PE -> DSC -> EP/SRP)
+    FireSmokeDetection();
+    PrepareToExit();
+
+    bool doorOk = DoorSafetyCheck();
+    bool escaped = false;
+
+    if (doorOk) {
+        escaped = EvacuationPath();
+    } else {
+        escaped = false; // waiting for rescue
+    }
+
+    // Termination
+    cout << "\n=== Termination (T) ===\n";
+    if (escaped) {
+        cout << "-> Move to safe assembly point outside.\n";
+    } else {
+        cout << "-> Stay in safe room / balcony and WAIT for rescue.\n";
+    }
+
+    cout << "\nEND of Fire Evacuation Procedure.\n";
+    return 0;
+}

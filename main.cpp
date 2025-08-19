@@ -95,7 +95,7 @@ bool EvacuationPath() {
 }
 
 bool DoorSafetyCheck() {
-    cout << "\n=== Door Safety Check (DSC) ===\n";
+    cout << "\n Door Safety Check (DSC) \n";
     if (yesNo("Is the door HOT or is smoke seeping in?")) {
         cout << "-> Do NOT open the door.\n";
         cout << "-> Seal all cracks with wet towels.\n";
@@ -110,10 +110,9 @@ bool DoorSafetyCheck() {
 
 // main function
 int main() {
-    cout << "      FIRE EVACUATION ASSISTANT      \n";
+    cout << "      Fire Evacuation Assiatant      \n";
     cout << "Stay calm. Direct fire/smoke and prepare to act.\n";
 
-    // Process (FSD -> AH -> PE -> DSC -> EP/SRP)
     FireSmokeDetection();
     PrepareToExit();
 
